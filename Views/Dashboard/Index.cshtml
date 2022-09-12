@@ -1,0 +1,28 @@
+﻿@model IM.Models.DashboardData
+<div class="report-title text-white">Dashboard</div>
+<br />
+
+<div class="container">
+    @await Html.PartialAsync("_KpiBar", Model.KpiData);
+
+    <div class="row">
+         @await Html.PartialAsync("_OverallChart", "Umar");
+         @await Html.PartialAsync("_MostAssignedToUsers", "Umar");
+    </div>
+
+    <div class="row">
+         @await Html.PartialAsync("_lastFive", Model.LastFive);
+         @await Html.PartialAsync("_lastFive", Model.Oldest5);
+    </div>
+
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+      //  $("#p").load("/Dahboard/KpiBar")
+    </script>
+
+}

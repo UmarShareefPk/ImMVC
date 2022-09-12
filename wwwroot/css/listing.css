@@ -1,0 +1,79 @@
+﻿
+:root {
+    --new-bg-color: radial-gradient(circle, rgba(222,184,68,1) 38%, rgba(250,196,19,1) 100%);
+    --inprogress-bg-color: radial-gradient(circle, rgba(113,166,247,1) 0%, rgba(48,128,204,1) 100%);
+    --closed-bg-color: radial-gradient(circle, rgba(66,194,56,1) 39%, rgba(113,200,120,1) 100%);
+    --approved-bg-color: radial-gradient(circle, rgba(12,99,5,1) 0%, rgba(14,131,22,1) 100%);
+    --late-bg-color: radial-gradient(circle, rgba(218,30,28,1) 0%, rgba(131,55,14,1) 100%);
+    --assignedToMe-bg-color: radial-gradient(circle, rgba(28,55,218,1) 0%, rgba(17,24,112,1) 100%);
+}
+
+
+.page-actions {
+    display:flex;
+    justify-content:space-between;
+  
+}
+.search-div {
+    min-width: 50%;
+    font-size: xx-small;
+}
+
+.search-btn div {
+    display: flex;
+}
+
+
+.modal-btn{
+    display:flex;
+}
+
+.status-badge{
+    padding:8px;
+    min-width: 80px;
+    color:white;
+    border-radius:7px
+}
+.status-badge.new {   
+    background: var(--new-bg-color);
+}
+.status-badge.inprogress {
+    background: var(--inprogress-bg-color);
+}
+.status-badge.closed {
+    background: var(--closed-bg-color);
+}
+.status-badge.approved {
+    background: var(--approved-bg-color);
+        
+}
+
+.status-badge.late {
+    background-color: #c91e1e;
+}
+/***************  New Incidend *******************/
+.modal-title {
+    font-size: larger;
+    color: #1a14a2;
+    font-weight: bold;
+    display:flex;
+    align-items:center;
+}
+.modal-content input.assign-text{
+    color:#756d6d;
+}
+.field{
+ 
+    margin-bottom:15px;
+    padding-bottom:5px;
+    border-bottom:1px solid #cec5c5;
+}
+.field-tile {
+    font-size: small;
+    color: blue;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+.field-tile.attachment{
+    margin-top:10px;
+}

@@ -1,0 +1,370 @@
+﻿
+/****************************************    Incident Details  **********************************/
+
+.edit-buttons {
+    text-align:right;
+    margin-top:5px;
+    color:white;
+}
+
+.edit-buttons button div {
+    display:flex;
+    align-items:center;
+}
+
+.edit-buttons button div i{
+    color:white;
+}
+
+.edit-buttons .save-btn {
+    background-color: green;
+    
+}
+
+.edit-buttons .cancel-btn {
+    background-color: orange;        
+}
+
+.edit-btn {
+    color: gray;
+    font-size: medium;
+    margin-left:5px;
+    cursor:pointer;
+}
+
+
+/*********** title**********/
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+}
+
+.title-text-div{
+    display:flex;
+    align-items:center;
+}
+
+.incident-title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: x-large;
+    color: #0458f2;
+}
+
+    .incident-title i {
+        /*   padding-top: 5px;
+    margin-right: 5px;*/
+        color: gray;
+        font-size: x-large;
+        cursor: pointer;
+    }
+
+.incident-createTime {
+    font-size: small;
+   /* background-color:white;*/
+    color: gray;
+    text-align:right;
+}
+
+/*********** description **********/
+.field-title{
+    font-weight:bold;
+    color:darkblue;
+    display:flex;
+    align-items:center;
+      
+}
+.field-td{
+    display:flex;
+    align-items:center;
+}
+.description-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.description-text-div {
+    display: flex;
+}
+.description-text-div p {
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.incident-description {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: medium;
+    color: #808080;
+}
+
+/*.incident-description i {
+    padding-top: 10px;
+    margin-right: 5px;
+    color: gray;
+    font-size: medium;
+    cursor: pointer;
+}*/
+
+/********* Files *****/
+
+.files-container{
+ 
+    display:flex;
+    flex-direction:column;
+}
+
+.incident-files-toggle{
+    padding-left:15px;
+    padding-top:10px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    font-size:medium;
+    color:darkblue;
+}
+
+.incident-files-toggle i {
+    margin-right:5px;
+}
+.files-container .file-box {
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+    line-height: 2;
+    border-bottom: dotted 0.5px lightgray;
+}
+
+.files-container .file-box .file-name {
+    min-width: 190px;
+    color: gray;
+}
+.files-container .file-box .file-name span {
+    display: flex;
+}
+
+.files-container .file-box .file-name i {
+    color: #cfbf13;
+    margin-right:2px;
+    margin-top:4px;
+}
+
+.files-container .file-box .file-actions {
+    font-size: medium;
+}
+.file-actions i{
+    cursor:pointer;
+}
+.file-actions i.del {
+    color: red;
+}
+.file-actions i.download {
+    color: dodgerblue;
+}
+/******* Fields **********/
+.field-table {
+    line-height: 2;
+}
+field-table tr
+{
+    border-bottom:solid 1px black;
+}
+
+/********* Comments ************/
+.comments-container {
+   max-height:40vh;
+   overflow-y:auto;
+  
+}
+
+.comments-container {
+    margin-top: 10px;
+}
+
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-bottom: 1px dotted black;
+}
+.comment-header{
+    display:flex;
+    flex-direction:row;    
+    justify-content:space-between;
+}
+
+.comment-source{
+    color:#808080;
+}
+.comment-source .creator {
+    color: #007bff;
+    font-size:small;
+    font-weight:bold;
+}
+
+.comment-source .info-text {
+    
+    font-size: small;
+}
+
+.comment-source .time-stamp {  
+    font-size: small;
+}
+
+.comment-actions i{
+    margin-left:0px;
+    cursor:pointer;
+    font-size:large;
+}
+.comment-actions i.edit {
+    color:gray;
+}
+.comment-actions i.del {
+    color: orangered;
+}
+
+.editable_text {
+    border: 1px solid black;
+    border-radius: 10px;    
+    color: black !important;
+    padding: 0px;
+    font-size: large;
+    height: 100px;
+    text-align: left;
+}
+.comment-editable {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #ebebeb;
+    color: black !important;
+    padding: 10px;
+    font-size: larger;
+    height: 100px;
+    text-align: left;
+}
+
+.comment-edit-btns{
+    margin-top:10px;
+    text-align:center;
+}
+.comment-edit-btns button div {
+    display:flex;
+    
+}
+.comment-body {
+    margin: 10px 0px;
+    text-align: center;
+}
+.comment-body span {
+    /*width: 100%;
+    text-align: center;*/
+}
+
+.comment-box .file-box {
+    display: flex;
+    justify-content: center;
+   /* padding: 0px 10vw;*/
+    /*margin-right:auto;*/
+    font-size: small;
+    line-height: 2;
+    border-bottom: dotted 0.5px lightgray;
+}
+
+.comment-files-toggle {
+    padding-left: 15px;
+    padding-top: 10px;
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    cursor: pointer;
+    font-size: medium;
+    color: darkblue;
+}
+
+.comment-files-toggle i {
+    margin-right: 5px;
+}
+
+
+.comment-box .file-box .file-name {  
+    color: gray;
+    min-width:190px;
+}
+
+.comment-box .file-box .file-name span{
+    display:flex;
+}
+
+
+.comment-box .file-box .file-name i {
+    color: #cfbf13;
+    margin-right:2px;
+}
+
+
+
+.comment-box .file-box .file-actions {
+    margin-left:10px;
+    font-size: medium;
+}
+
+.new-comment{
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+}
+.new-comment textarea{
+    margin-bottom:8px;
+}
+.new-comment .new-comment-actions {
+    text-align: right;
+    
+}
+.new-comment .new-comment-actions span{
+    color:dodgerblue;
+    margin-right:5px;
+}
+
+
+/* assignee drop down*/
+.assignee-dropdown {
+    max-height: 50vh;
+    text-align: center;
+    overflow-y: auto;
+    border: solid 1px silver;
+    background-color: white;
+}
+
+.assign-text{
+    font-size:large;
+}
+
+.dd-search-input {
+    font-size: large;
+    padding: 5px 10px;
+    color: lightgray;
+}
+
+.dd-search-input::placeholder {
+color:lightgray;
+}
+
+.dropdown-item{
+    cursor:pointer;
+    border-bottom:0.5px solid lightgray;
+    color:lightslategray;
+}
+.dropdown-item:hover {
+    background-color:darkblue;
+    color:white;
+}

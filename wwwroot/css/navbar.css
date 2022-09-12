@@ -1,0 +1,124 @@
+﻿/* ***********************   Nav ***************************/
+
+.navbar {
+    background: radial-gradient(circle, rgba(29,44,59,1) 0%, rgba(0,0,0,1) 100%);
+    /* padding: 10px 30vw*/
+}
+
+.navbar-toggler {
+    color: white;
+}
+
+.navbar .nav-link {
+    color: white; 
+    display:flex;
+    justify-content:start;
+    align-items:center;
+    cursor:pointer;
+}
+
+.nav-item i {
+    color: white;
+    padding-right: 2px;
+}
+
+
+.badge.badge-pill {
+    background-color:dodgerblue;
+    color: white;
+}
+
+.logout-icon {
+    color: orangered !important;
+}
+
+@media (max-width:980px) {
+    .nav-item.icon {
+        margin-top: 1vh;
+    }
+}
+
+/* Small devices  */
+@media (min-width: 300px) {
+}
+
+/* (tablets, 768px and up) */
+@media (min-width: 700px) {
+}
+
+/* Large Tablets  */
+@media (min-width: 1000px) {
+    .nav-item.icon {
+        margin-left: 30px;
+        /* margin-top:0.5vh;*/
+    }
+}
+
+/* Computer */
+@media (min-width: 1500px) {
+}
+
+
+/***** Notifications *************/
+
+.notification-container{
+    max-height:60vh;
+    overflow-y:auto;
+    min-width:30vw;
+}
+.notification-div{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 20px 10px;
+    border-bottom: solid 1px black;
+}
+.notification-div.read {
+}
+    .notification-div.unread {
+        /* background-color:rgba(12,0,106,1); #fafad2*/
+        background-color: #ece9e9;
+    }
+
+.notification-div .notification-text-div {
+    display: flex;
+    align-items: center;
+    max-width: 80%;
+    min-width: 70%;
+}
+
+.notification-div i {
+    margin-right: 10px;
+    cursor:pointer;
+}
+.notification-div.read i {
+   
+    color: rgba(12,0,106,1);
+}
+    .notification-div.unread i {
+        color: rgba(12,0,106,1);
+    }
+
+.notification-div span.notification-text{
+    cursor:pointer;
+}
+.notification-div span.notification-text:hover{
+    text-decoration:underline;
+
+}
+
+.notification-div.read span.notification-text {
+    color: #808080;
+}
+.notification-div.unread span.notification-text {
+    color: rgba(12,0,106,1);
+ }
+
+.notification-div.read .timestamp {
+    color: #808080;
+    font-size: small;
+}
+    .notification-div.unread .timestamp {
+        color: rgba(12,0,106,1);
+        font-size: small;
+    }

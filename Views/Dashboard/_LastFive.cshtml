@@ -1,0 +1,32 @@
+﻿@model List<IM.Models.Incident>
+@inject IM.Helper.ICommon common
+
+<div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+    <div class="card">
+          <div class="card-body">
+            <h5> Last 5 Incidents  </h5>
+            @foreach (var incident in Model)
+            {
+                <div class="incident">
+                    <div class="time-status">
+                        <span class="timestamp"
+                          title="@incident.CreatedAT">
+                            2 years ago
+                        </span>
+
+                        <span class="status @(common.GetStatusNameByCode(incident.Status).Replace(" ","").ToLower())">
+                            @common.GetStatusNameByCode(incident.Status)
+                        </span>
+                    </div>
+
+                    <div class="title">
+                        <a href="/IncidentDetails/@incident.Id">
+                            @incident.Title
+                        </a>
+                    </div>
+
+                </div>
+            }
+    </div>
+    </div>
+</div>

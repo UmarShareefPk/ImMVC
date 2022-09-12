@@ -1,0 +1,52 @@
+﻿@model IM.Models.KpiData
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">  
+            
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 kpi-col">
+                <div class="kpi new-color">
+                    <div class="kpi-value">@Model.New</div>
+                    <div class="kpi-text">New</div>
+                </div>
+            </div>
+
+             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 kpi-col">
+                <div class="kpi inprogress-color">
+                    <div class="kpi-value">@Model.InProgress</div>
+                    <div class="kpi-text">InProgress</div>
+                </div>
+            </div>
+
+             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 kpi-col">
+                <div class="kpi closed-color">
+                    <div class="kpi-value">@Model.Closed</div>
+                    <div class="kpi-text">Closed</div>
+                </div>
+            </div>
+
+             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 kpi-col">
+                <div class="kpi approved-color">
+                    <div class="kpi-value">@Model.Approved</div>
+                    <div class="kpi-text">Approved</div>
+                </div>
+            </div>
+
+             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 kpi-col">
+                <div class="kpi late-color">
+                    <div class="kpi-value">@Model.Late</div>
+                    <div class="kpi-text">Late</div>
+                </div>
+            </div>
+
+             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 kpi-col">
+                <div class="kpi assignedToMe-color">
+                    <div class="kpi-value">@Model.AssignedToMe</div>
+                    <div class="kpi-text">Assigned To Me</div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>

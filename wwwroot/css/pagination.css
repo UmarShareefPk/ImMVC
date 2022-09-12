@@ -1,0 +1,54 @@
+﻿
+/********************************    Pagination *******************************/
+
+.pagination li a {
+    color: #1a237e;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #1a237e;
+}
+
+.pagination li {
+    cursor: pointer;
+}
+/* Small devices  */
+@media (min-width: 300px) {
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* (tablets, 768px and up) */
+@media (min-width: 700px) {
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* Large Tablets  */
+@media (min-width: 1000px) {
+    .page-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* Computer */
+@media (min-width: 1500px) {
+
+    .page-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
