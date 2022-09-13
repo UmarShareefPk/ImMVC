@@ -5,9 +5,8 @@
 $(document).ready(function () {
 
     $(".dateType").each(function () {
-        console.log($(this).html()); 
-      let m =  moment($(this).html()).fromNow();
+        let m = moment($(this).html()).fromNow();
         $(this).html(m)
-    })
+    });
 
 });
