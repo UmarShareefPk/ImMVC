@@ -1,8 +1,11 @@
 ﻿@model IM.Models.DashboardData
-<div class="report-title text-white">Dashboard</div>
+@{
+    ViewData["title"] = "Dashboard";
+ }
+    <div class="report-title text-white">Dashboard</div>
 <br />
 
-<div class="container">
+<div class="container dashboard-container">
     @await Html.PartialAsync("_KpiBar", Model.KpiData);
 
     <div class="row">
@@ -11,8 +14,15 @@
     </div>
 
     <div class="row">
+        @{ 
+           ViewData["widgetTitle"] = "Last 5 Incidents";
+         }
          @await Html.PartialAsync("_lastFive", Model.LastFive);
-         @await Html.PartialAsync("_lastFive", Model.Oldest5);
+          @{ 
+           ViewData["widgetTitle"] = "5 Oldest Unresolved Incidents";
+         }
+         @await Html.PartialAsync("_lastFive", Model.Oldest5,  ViewData );
+           
     </div>
 
 </div>
@@ -22,7 +32,204 @@
 
 @section Scripts{
     <script>
-      //  $("#p").load("/Dahboard/KpiBar")
+           
+    $(document).ready(function() {
+ 
+        let overallData = @Html.Raw(Json.Serialize(Model.OverallData));
+        drawOverallChart(overallData);
+
+        let mostAssignedData = @Html.Raw(Json.Serialize(Model.MostAssignedToUsersData));
+        drawMostAssignedChart(mostAssignedData);
+        
+    });
+    
+    const drawOverallChart = (data) => {
+      Highcharts.chart('overallChart', {
+        chart: {
+            type: 'pie',   
+             backgroundColor :'#1E2732',
+             borderColor:'#1E2732',
+             borderWidth:0
+        },
+       
+        title: {
+            text: ''
+        },
+        credits:
+        {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.y} ({point.percentage:.1f}%)</b>'
+        },
+          legend: {
+              itemStyle:{'color':'#c6c6c6'}
+          },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',                
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true,
+                borderWidth: 0
+            }
+          },
+       series: [{
+            name: 'Share',
+            data: [                
+                {
+                    name: 'New', y: data.new, color: {
+                        radialGradient: [0, 0, 0, 300],
+                        stops: [
+                            [0, 'rgba(215,153,34,1)'],
+                            [1, 'rgba(172,125,35,1)']
+                        ]
+                    }
+                },          
+                {
+                    name: 'In Progress', y: data.inProgress, color: {
+                        radialGradient: [0, 0, 0, 300],
+                        stops: [
+                            [0, 'rgba(53,93,138,1)'],
+                            [1, 'rgba(54,95,150,1)']
+                        ]
+                    }
+                },
+                {
+                    name: 'Closed', y: data.closed, color: {
+                        radialGradient: [0, 0, 0, 300],
+                        stops: [
+                            [0, 'rgba(66,148,57,1)'],
+                            [1, 'rgba(40,171,61,1)']
+                        ]
+                    }
+                },
+          
+                {
+                    name: 'Approved', y: data.approved, color: {
+                        radialGradient: [0, 0, 0, 300],
+                        stops: [
+                            [0, 'rgba(21,120,11,1)'],
+                            [1, 'rgba(5,88,18,1)']
+                        ]
+                    }
+                },
+                {
+                    name: 'Late', y: data.late, color: {
+                        radialGradient: [0, 0, 0, 300],
+                        stops: [
+                            [0, 'rgba(138,43,36,1)'],
+                            [1, 'rgba(122,34,23,1)']
+                        ]
+                    }
+                }
+                
+            ]
+        }]
+    });
+
+}
+    
+    const drawMostAssignedChart = (data) => {
+         let bgColor = {
+        linearGradient: [0, 0, 0, 300],
+        stops: [
+            [0, 'rgba(6,131,181,1)'], 
+            [1, 'rgba(7,65,105,1)']                                 
+        ]
+    };
+
+    data = [       
+        {
+            name: data[0].Name, y: parseInt(data[0].Count), color: bgColor
+        },
+        {
+            name: data[1].Name, y: parseInt(data[1].Count), color: bgColor
+        },
+        {
+            name: data[2].Name, y: parseInt(data[2].Count), color: bgColor
+        },
+        {
+            name: data[3].Name, y: parseInt(data[3].Count), color: bgColor
+        },
+        {
+            name: data[4].Name, y: parseInt(data[4].Count), color: bgColor
+        }
+    ];
+
+    Highcharts.chart('mostAssignedtoUsersChart', {
+        title: {
+            text: 'My chart'
+        },
+        chart: {
+            type: 'bar', 
+             style: {
+                       // fontFamily: 'monospace',
+                       // color: "#fff"
+                 },
+              backgroundColor :'#1E2732',
+                borderWidth:0
+            //width: (100) + '%',
+        },
+
+        plotOptions: {
+                bar: {
+                    borderWidth: 0
+                }
+              },
+       
+        title: {
+            text: ''
+        },
+        dataLabels: {
+              style: {
+                color: '#c6c6c6'
+              }
+            },   
+        credits:
+        {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            gridLineColor: '#394655',
+            labels: {
+                animate: true,
+                 style: {
+                        color: '#c6c6c6'                       
+                     }
+            }
+        },
+
+        xAxis: {
+            type: 'category',
+            min: 0,
+            labels: {
+                animate: true,
+                 style: {
+                        color: '#c6c6c6'                       
+                     }
+            }
+        },
+
+        series: [{
+            name: '',
+            dataSorting: {
+                enabled: true,
+                sortKey: 'y'
+            },
+            data: data
+        }]
+    });
+
+    }
     </script>
 
 }

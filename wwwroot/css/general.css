@@ -1,5 +1,14 @@
 /******************************* Shared **********************************/
 
+:root {
+    --new-bg-color: radial-gradient(circle, rgba(215,153,34,1) 0%, rgba(172,125,35,1) 100%);
+    --inprogress-bg-color: radial-gradient(circle, rgba(53,93,138,1) 0%, rgba(54,95,150,1) 100%);
+    --closed-bg-color: radial-gradient(circle, rgba(66,148,57,1) 0%, rgba(40,171,61,1) 100%);
+    --approved-bg-color: radial-gradient(circle, rgba(21,120,11,1) 0%, rgba(5,88,18,1) 100%);
+    --late-bg-color: radial-gradient(circle, rgba(138,43,36,1) 0%, rgba(122,34,23,1) 100%);
+    --assignedToMe-bg-color: radial-gradient(circle, rgba(36,57,138,1) 0%, rgba(23,50,122,1) 100%);
+} 
+
 .card {
     background: #1E2732;
     margin: 7px 0px;
@@ -10,9 +19,6 @@
     box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
 }
 
-.col-xl-6, .col-lg-6{
-    width:49.8%;
-}
 
 .im-btn {
     background: #7c7676;

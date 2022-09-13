@@ -28,7 +28,7 @@
     -webkit-text-fill-color: transparent;*/
     text-align: center;
     margin-top: 10px;
-    font-size: large;
+    font-size: medium;
     font-weight: bold;
 }
 
@@ -45,7 +45,7 @@
     align-items: flex-start;
     margin: 20px 0px;
     padding-bottom: 10px;
-    border-bottom: 1px dotted;
+    border-bottom: 1px solid #484646;
     max-width: 100%;
 }
 
@@ -61,17 +61,16 @@
     white-space: nowrap;
     font-size: small;
     color: white;
-    background-color:#5f5858;
+    background-color: #64666b;
     padding:0px 10px;
-    border-radius:4px;
-
+    border-radius: 4px;
 }
 
 .incident .status {
     white-space: nowrap;
     font-size: small;
     text-align:center;
-    padding: 8px;
+    padding: 4px;
     min-width: 70px;
     color: white;
     border-radius: 7px
@@ -104,12 +103,13 @@
     margin-left: 20px;
 }
 
-.incident .title a {
-    font-size: large;
-/*    padding-left: 5px;*/
-    /*color: #1A237E;*/
-    color:#b9b7b7
-}
+    .incident .title a {
+        font-size: medium;
+        /*    padding-left: 5px;*/
+        /*color: #1A237E;*/
+        text-decoration: unset;
+        color: #c6c6c6
+    }
 
 .incident .title:hover {
     text-decoration: underline;
@@ -118,7 +118,7 @@
 
 
 /* Small devices  */
-@media (min-width: 300px) {
+@media (min-width: 280px) {
     .widget {
         padding: 0 10px;
         overflow: auto;
@@ -133,7 +133,7 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        border-bottom: 1px dotted;
+     
     }
 }
 
@@ -149,6 +149,10 @@
         margin-bottom: 10px;
         height: 500px;
     }
+.dashboard-container .col-xl-6, .col-lg-6 {
+    width: 49%;
+}
+
 }
 
 /* Computer */
@@ -157,23 +161,7 @@
 
 /********* KPIBar*/
 
-.kpibar {
-    border: 1px solid gray;
-    padding: 20px;
-    border-radius: 20px;
-}
 
-.kpi {
-    padding-right: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #1A237E;
-    padding: 25px 10px;
-    border-radius: 30px;
-    color: white;
-}
 
 .kpi-text {
     white-space: nowrap;
@@ -203,30 +191,45 @@
     background: var(--assignedToMe-bg-color);
 }
 
+/*.kpi-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;   
+}*/
 
 
-
-/* Small devices  */
-@media (min-width: 300px) {
-    ./*kpi-col {
-        width: 50%;
-    }*/
-
-    .kpi {
-        padding: 10px 0px;
-        margin-bottom: 20px;
-        border-radius: 10%;
-    }
-
-
-    .kpi-value {
-        font-size: 15px;
-        margin-bottom: 5px;
-    }
-
-    .kpi-text {
-        font-size: 10px;
-    }
+.kpi-value{
+    font-size:medium;
+    font-weight:bold;
+}
+.kpi-text {
+    font-size: small;
+}
+    /* Small devices  */
+@media (min-width: 270px) {
+    .kpi-bar {
+    display: flex;
+    flex-direction: column;        
+}
+.kpi-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom:1vh;
+}
+.kpi {
+    display: flex;
+    width: 50%;
+    margin: 0px 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+    border-radius: 10px;
+    color: white;
+}
 }
 
 /* (tablets, 768px and up) */
@@ -235,36 +238,33 @@
 
 /* Large Tablets  */
 @media (min-width: 1000px) {
+    .kpi-bar {
+        display: flex;
+        flex-direction: row;
+        align-items:center;
+    }
+    .kpi-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 33%;
+    }
+
     .kpi {
-        padding: 25px 10px;
-        margin-bottom: 0px;
-    }
-
-    .kpi-value {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .kpi-text {
-        font-size: 10px;
+        display: flex;
+        width: 50%;
+        margin: 0px 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0px;
+        border-radius: 10px;
+        color: white;
     }
 }
 
 /* Computer */
 @media (min-width: 1500px) {
-    .kpi {
-        padding: 25px 10px;
-        margin-bottom: 0px;
-    }
-
-    .kpi-value {
-        font-size: 25px;
-        margin-bottom: 5px;
-    }
-
-    .kpi-text {
-        font-weight: bold;
-        font-size: 12px;
-    }
+ 
 }

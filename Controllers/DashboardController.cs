@@ -20,11 +20,19 @@ namespace MVCWeb.Controllers
             string token = User.Claims.Where(c => c.Type == "Token").FirstOrDefault().Value;
             string userId = User.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
             var kpiData = await dashboardService.GetKpi(token, userId);
+            var overallData = await dashboardService.GetOverallWidget(token);
+            var mostAssignedData = await dashboardService.GetMostAssignedToUsers(token);
             var lastFive = await dashboardService.GetLast5Incidents(token);
             var oldest5 = await dashboardService.GetOldest5UnresolvedIncidents(token);
 
 
-            return View(new DashboardData { KpiData = kpiData, LastFive= lastFive, Oldest5=oldest5 });
+            return View(new DashboardData { 
+                KpiData = kpiData,
+                OverallData = overallData,
+                MostAssignedToUsersData = mostAssignedData,
+                LastFive = lastFive, 
+                Oldest5 = oldest5 
+            });
         }
 
         [Authorize]
