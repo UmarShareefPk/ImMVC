@@ -1,16 +1,15 @@
 ﻿
-2
-
-
-.page-actions {
-    display:flex;
-    justify-content:space-between;
+.card-body .page-actions {
+    display: flex;
+    justify-content: space-between;
   
 }
 .search-div {
     min-width: 50%;
-    font-size: xx-small;
+    /*font-size: xx-small;*/
+    background-color: var(--card-bg);
 }
+
 
 .search-btn div {
     display: flex;
@@ -21,11 +20,16 @@
     display:flex;
 }
 
-.status-badge{
-    padding:8px;
+
+.title-td a {
+    color: #a5b4ff;
+}
+
+.status-badge {
+    padding: 8px;
     min-width: 80px;
-    color:white;
-    border-radius:7px
+    color: white;
+    border-radius: 7px
 }
 .status-badge.new {   
     background: var(--new-bg-color);

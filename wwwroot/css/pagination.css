@@ -1,16 +1,28 @@
 ﻿
 /********************************    Pagination *******************************/
 
+select option {
+    margin: 40px;
+    background: #1E2732;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
 .pagination li a {
     color: #1a237e;
 }
 
-.pagination .page-item.active .page-link {
-    background-color: #1a237e;
+.pagination .page-item .page-link {
+    background-color: #1E2732;
+    color:#bbb9b9;
+}
+.pagination .page-item.active .page-link, .pagination .page-item .page-link:hover {
+    background-color: #31622b;
+    color: white;
 }
 
 .pagination li {
     cursor: pointer;
+ 
 }
 /* Small devices  */
 @media (min-width: 300px) {

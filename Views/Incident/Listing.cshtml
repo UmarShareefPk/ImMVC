@@ -1,0 +1,114 @@
+﻿<div class="container px-8">
+    <br />
+    <div class="report-title">Incidents</div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <div class="page-actions">
+                <div class="search-div">
+                    <input type="text" class="line-textbox w-50" placeholder="Enter title or description and hit Search" />
+                    <button class="btn btn-outline-success search-btn">
+                        <div>
+                            <i class="material-icons">search</i>
+                            @*<span> Search </span>*@
+                        </div>
+                    </button>
+                </div>
+                <button type="button" class="modal-btn btn im-btn text-nowrap" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="material-icons">
+                        add
+                    </i>
+                    Add New
+                </button>
+            </div>
+           @* <NewIncident incidentAdded="@newIncidentAdded"></NewIncident>*@
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" scope="col">Title</th>
+                            <th class="text-nowrap" scope="col">Description</th>
+                            <th class="text-nowrap" scope="col">Assigned TO</th>
+                            <th class="text-nowrap" scope="col">Created By</th>
+                            <th class="text-nowrap" scope="col">Created Date</th>
+                            <th class="text-nowrap" scope="col">Due Date</th>
+                            <th class="text-nowrap" scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="imListRows">                     
+                       
+
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="card-footer ">
+              @*  <Pagination pageNumber="@pageNumber" pageSize="@pageSize" totalRecords="@totalRecords" pageSizeOrNumberChanged="ReloadIncidents"></Pagination>
+*@             @await Html.PartialAsync("_Pagination", "")    
+          
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+ <script>
+let pageSize = 5;
+let pageNumber = 1;
+
+$(document).ready(function() {
+    loadIncidents(5, 1, "");
+   
+});
+
+function loadIncidents(pageSize, pageNumber, search) {
+          
+    fetch("/Incident/ListingPage?pageSize="+ pageSize +"&pageNumber="+ pageNumber +"&search="+ "" )
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+                setIncidents(response.incidents);
+          //  setPagination1();
+            setPagination("incidentPages", response.total_Incidents, pageSize, pageNumber);
+                // setPages(parseInt(response.data.Total_Incidents), pageSize, pageNumber, search);
+                //setRecordsInfo(response.data.Total_Incidents, pageSize, pageNumber);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+} // end of loadIncidents
+function setIncidents(allIncidents) {
+    let incidents = "";
+    allIncidents.forEach((incident) => {
+        incidents += "<tr>";
+        incidents += "<td class='title-td text-nowrap' title='" + incident.title + "'>" 
+                     +   "<a href='@Url.Content("~/Incident/IncidentDetails")/" + incident.id + "'>" + (incident.title.length > 40 ? incident.title.slice(0, 40) + "..." : incident.title) + "... </a>"
+                      +  "</td>";
+        incidents += "<td class='text-nowrap' title='" + incident.description + "'>  " + (incident.description.length > 50 ? incident.description.slice(0, 30) + "..." : incident.description) + "... </td>";
+        incidents += "<td>" + getUserNameById(incident.assignedTo) + "</td>";
+        incidents += "<td>" + getUserNameById(incident.createdBy) + "</td>";
+        incidents += "<td><span title='" + moment(incident.createdAT).format("MMMM DD YYYY, h:mm:ss a") + "' >" + moment(incident.createdAT).fromNow() + "</span></td>";
+        incidents += "<td><span title='" + moment(incident.dueDate).format("MMMM DD YYYY, h:mm:ss a") + "' >" + moment(incident.dueDate).fromNow() + "</span></td>";
+        incidents += "<td>" + getStatusByCode(incident.status) + "</td>";
+        incidents += "</tr>";
+    })
+    // render html
+    $("#imListRows").html(incidents);
+}
+
+const pageNumberChanged = (selectedPageNumber) => {
+    pageNumber = selectedPageNumber;
+    loadIncidents(pageSize, pageNumber, "");  
+}
+
+ </script>
+} 
