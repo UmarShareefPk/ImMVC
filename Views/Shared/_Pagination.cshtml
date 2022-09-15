@@ -1,20 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<div class="page-container d-none" id="pageContainer">
+﻿<div class="page-container d-none" id="pageContainer">
      
         <div id="info" class="text-muted">
-            Showing from 1 to 5 of 70 records
-           @* Showin from @(pageNumber*pageSize - pageSize + 1) to  
-            @( pageNumber*pageSize < totalRecords? pageNumber*pageSize : totalRecords) of @totalRecords records (@totalPages pages)</div>
-            *@  
+            
         </div>
           <div class="">
             <div>
                 <span class="text-muted">Page Size :</span>
-                <select onchange="sizeChanged" class="line-textbox  browser-default dropdown-custom">
+                <select onchange="sizeChanged(this);" class="line-textbox  browser-default dropdown-custom">
                     <option value="5" selected="">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -27,7 +19,7 @@
         </div>
         <div class="">
             <nav>
-                <ul id="pageList" class="pagination justify-content-end">
+                <ul id="pageList" class="pagination justify-content-end">             
                 </ul>
             </nav>
         </div>
@@ -35,39 +27,55 @@
 
 
 <script>
-
-//
-const setPagination = (pageContainerId, totalRecords, pageSize, pageNumber) => {
-    console.log(totalRecords, pageSize, pageNumber);
-        let pagesHtml = " <nav>";
-         pagesHtml += " <ul class='pagination justify-content-end'>";
-           
-        let noOfPages = Math.ceil(totalRecords / pageSize);
-        // No pages if no records
-        if (totalRecords == 0)
-            return;
-        // set previous button
-        if (pageNumber === 1)
-            pagesHtml += "<li class='page-item'><span class='page-link'>Previous</span></li>";
-        else
-            pagesHtml += "<li class='page-item' onclick=\"pageNumberChanged(" + (pageNumber - 1) + ");\"><a class='page-link' href='#'>Previous</a></li>";
-        // set number buttons
-        for (let i = 1; i <= noOfPages; i++) {
-            let isActive = i === pageNumber ? "active" : ""; //;
-            if (i > pageNumber - 3 && i < pageNumber + 3) {
-                 pagesHtml += "<li class='page-item " + isActive + "' onclick=\"pageNumberChanged("+i+") \"><a class='page-link' href='#'>" + i + "</a></li>";
-            }
-           
+  const setRecordsInfo = (total, pageSize, pageNumber) => {
+            let end = pageSize * pageNumber;
+            let start = end - pageSize + 1;
+            if (end > total)
+                end = total;
+            let info = `Showin from  ${ start } to ${ end } of ${ total } Incidents`;
+            $("#info").html(info);
         }
-        // set next button
-        if (pageNumber === noOfPages)
-            pagesHtml += "<li class='page-item'><span class='page-link'>Next</span></li>";
-        else
-            pagesHtml += "<li class='page-item' onclick=\"pageNumberChanged(" + (pageNumber + 1) + ");\"><a class='page-link' href='#'>Next</a></li>";
+    const sizeChanged = (dropdown) => {
+        pageSizeChanged($(dropdown).val()); // call the method in listing report
+    }
+    //
+    const setPagination = (pageContainerId, totalRecords, pageSize, pageNumber) => {       
+            let pagesHtml = " <nav>";
+             pagesHtml += "<ul class='pagination justify-content-end'>";
+           
+            let noOfPages = Math.ceil(totalRecords / pageSize);
+            // No pages if no records
+            if (totalRecords == 0)
+                return;
+            // set previous button
+            if (pageNumber === 1)
+                pagesHtml += `<li class='page-item'><span class='page-link'>Previous</span></li>`;
+            else
+                pagesHtml += `<li class='page-item' onclick="pageNumberChanged(${(pageNumber - 1)});">
+                                <a class='page-link' href='#'>Previous</a>
+                             </li>`;
+            // set number buttons
+            for (let i = 1; i <= noOfPages; i++) {
+                let isActive = i === pageNumber ? "active" : ""; //;
+                if (i > pageNumber - 3 && i < pageNumber + 3) {
+                     pagesHtml += `<li class="page-item ${ isActive }" onclick="pageNumberChanged(${i})">
+                                   <a class='page-link' href='#'> ${ i } </a>
+                                  </li>`;
+                }           
+            }
+            // set next button
+            if (pageNumber === noOfPages)
+                pagesHtml += "<li class='page-item'><span class='page-link'>Next</span></li>";
+            else
+                pagesHtml += `<li class='page-item' onclick="pageNumberChanged(${ pageNumber + 1 });">
+                                <a class='page-link' href='#'>Next</a>
+                             </li>`;
    
-        pagesHtml += "</ul></nav>"
-    $("#pageList").html(pagesHtml);
-    $("#pageContainer").removeClass("d-none");
-}
+            pagesHtml += "</ul></nav>"
+
+        $("#pageList").html(pagesHtml);
+        setRecordsInfo(totalRecords, pageSize, pageNumber);
+        $("#pageContainer").removeClass("d-none");
+    }
 
 </script>

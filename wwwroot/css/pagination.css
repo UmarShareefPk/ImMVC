@@ -16,7 +16,7 @@ select option {
     color:#bbb9b9;
 }
 .pagination .page-item.active .page-link, .pagination .page-item .page-link:hover {
-    background-color: #31622b;
+    background-color: #301a86;
     color: white;
 }
 
@@ -31,6 +31,7 @@ select option {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+        height:120px;
     }
 }
 
@@ -51,6 +52,7 @@ select option {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        height: fit-content;
     }
 }
 

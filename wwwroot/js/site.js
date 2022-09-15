@@ -11,6 +11,17 @@ $(document).ready(function () {
 
 });
 
+function debounce(cb, delay = 1000) {
+    console.log("cb", cb);
+    let timeout;
+
+    return (...args) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            cb(...args);
+        }, delay);
+    }
+}
 
 function getStatusByCode(code) {
     switch (code) {

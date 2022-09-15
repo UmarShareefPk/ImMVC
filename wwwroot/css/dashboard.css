@@ -32,11 +32,6 @@
     font-weight: bold;
 }
 
-.loading-p {
-    background-color: lightgreen;
-    text-align: center;
-    font-size: large;
-}
 
 .incident {
     display: flex;

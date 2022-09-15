@@ -101,6 +101,17 @@ textarea.small {
     font-weight: bold;
     color:white;
 }
+.loading-p {
+    background-color: none;
+    text-align: center;
+    font-size: large;
+    color:#3bdfa0;
+}
+.not-found{
+    text-align:center;
+    font-size:large;
+    color:#e3a72b;
+}
 
 .table-borderless > tbody > tr > td,
 .table-borderless > tbody > tr > th,

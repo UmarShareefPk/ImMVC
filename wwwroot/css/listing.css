@@ -5,14 +5,14 @@
   
 }
 .search-div {
-    min-width: 50%;
+    min-width: fit-content;
     /*font-size: xx-small;*/
     background-color: var(--card-bg);
 }
 
 
 .search-btn div {
-    display: flex;
+    display: flex;    
 }
 
 
