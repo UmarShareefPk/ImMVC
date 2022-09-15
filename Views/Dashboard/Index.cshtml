@@ -34,7 +34,7 @@
     <script>
            
     $(document).ready(function() {
- 
+        localStorage.setItem("allUsers", JSON.stringify(@Html.Raw(Json.Serialize(ViewBag.allUsers))));
         let overallData = @Html.Raw(Json.Serialize(Model.OverallData));
         drawOverallChart(overallData);
 

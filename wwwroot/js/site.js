@@ -11,8 +11,7 @@ $(document).ready(function () {
 
 });
 
-function debounce(cb, delay = 1000) {
-    console.log("cb", cb);
+function debounce(cb, delay = 1000) {   
     let timeout;
 
     return (...args) => {
@@ -44,12 +43,12 @@ function auto_grow(element) { // for textareas
 }
 
 function getUserNameById(userId) {
-    //let allUsers = JSON.parse(localStorage.getItem("allUsers"));
-    //let user = allUsers.find((user) => {
-    //    return user.Id === userId;
-    //});
-    //return user.FirstName + " " + user.LastName;
-    return "Umar Shareef";
+    let allUsers = JSON.parse(localStorage.getItem("allUsers"));    
+    let user = allUsers.find((user) => {
+        return user.id === userId;
+    });
+    return user.firstName + " " + user.lastName;
+   
 }
 
 function getAssingeesBySearch(search) {

@@ -10,11 +10,13 @@
     background-color: var(--card-bg);
 }
 
-
-.search-btn div {
-    display: flex;    
+.search-div input{
+    padding:5px;
 }
 
+.search-btn div {
+    display: flex;
+}
 
 .modal-btn{
     display:flex;

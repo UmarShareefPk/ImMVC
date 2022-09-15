@@ -9,9 +9,11 @@ namespace MVCWeb.Controllers
     public class DashboardController : Controller
     {
         private readonly IDashboardService dashboardService;
-        public DashboardController(IDashboardService _dashboardService)
+        private readonly IUserService userService;
+        public DashboardController(IDashboardService _dashboardService, IUserService _userService)
         {
             dashboardService = _dashboardService;
+            userService = _userService;
         }
         // GET: DashboardController
         [Authorize]
@@ -25,6 +27,9 @@ namespace MVCWeb.Controllers
             var lastFive = await dashboardService.GetLast5Incidents(token);
             var oldest5 = await dashboardService.GetOldest5UnresolvedIncidents(token);
 
+            var allUsers = await userService.GetAllUsers(token);
+
+            ViewBag.allUsers = allUsers;
 
             return View(new DashboardData { 
                 KpiData = kpiData,

@@ -7,11 +7,11 @@
             <div class="page-actions">
                 <div class="search-div">
                     <input type="text" id="searchText" class="line-textbox" placeholder="Enter title or description and hit Search" />
-                    <button class="btn btn-outline-success search-btn">
+                    @*<button class="btn btn-outline-success search-btn">
                         <div>
                             <i class="material-icons">search</i>                         
                         </div>
-                    </button>
+                    </button>*@
                 </div>
                 <button type="button" class="modal-btn btn im-btn text-nowrap ms-2" data-toggle="modal" data-target="#exampleModalCenter">
                     <i class="material-icons">
@@ -93,22 +93,18 @@ $(document).ready(function() {
     });
 });
 
-//const updateDebounceText = debounce(() => {
-//  incrementCount(debounceText)
-//})
-
 function loadIncidents(pageSize, pageNumber, search) {
     setLoading();
     fetch("/Incident/ListingPage?pageSize=" + pageSize + "&pageNumber=" + pageNumber + "&search=" + searchTxt)
         .then(response => response.json())
         .then(response => {
             if (response.total_Incidents == 0 || response.incidents == null) {
-                setNotFound();
+                setNotFound();               
             }
             else {
                  setIncidents(response.incidents);                        
             }           
-            setPagination("incidentPages", response.total_Incidents, pageSize, pageNumber);    
+            setPagination(response.total_Incidents, pageSize, pageNumber);    
         })
         .catch((err) => {
             console.log(err);
@@ -118,32 +114,37 @@ function loadIncidents(pageSize, pageNumber, search) {
 function setIncidents(allIncidents) {
     let incidents = "";
     allIncidents.forEach((incident) => {
-                incidents += 
-                `<tr>
-                     <td class='title-td text-nowrap' title="${incident.title} ">
-                        <a href="@Url.Content("~/Incident/IncidentDetails")/ ${incident.id}">
-                             ${incident.title.length > 40 ? incident.title.slice(0, 40) + "..." : incident.title}
-                        </a>
-                     </td>
-                     <td class='text-nowrap' title='${incident.description}'>
-                        ${incident.description.length > 50 ? incident.description.slice(0, 30) + "... " : incident.description}
-                     </td>
-                     <td class='text-nowrap'> ${getUserNameById(incident.assignedTo)}</td>;
-                     <td class='text-nowrap'> ${getUserNameById(incident.createdBy)}</td>;
-                     <td class='text-nowrap'>
-                        <span title='${moment(incident.createdAT).format("MMMM DD YYYY, h:mm:ss a")}' >  ${moment(incident.createdAT).fromNow()}
-                        </span>
-                     </td>
-                     <td class='text-nowrap'>
-                         <span title='${moment(incident.dueDate).format("MMMM DD YYYY, h:mm:ss a")}' >  ${moment(incident.dueDate).fromNow()}
-                         </span>
-                     </td>;
-                     <td class='text-nowrap'>
-                        <div class='status-badge badge  ${getStatusByCode(incident.status).replace(" ", "").toLowerCase()}' >
-                            ${getStatusByCode(incident.status)}
-                        </div>
-                    </td>
-                 </tr>`;
+        let dueDateClass = "";
+        let currentTime = new Date();     
+        if (moment(incident.dueDate)._d < currentTime && (incident.status == 'N' || incident.status == 'I'))
+            dueDateClass = "text-danger";
+
+        incidents += 
+        `<tr>
+                <td class='title-td text-nowrap' title="${incident.title} ">
+                <a href="@Url.Content("~/Incident/IncidentDetails")/ ${incident.id}">
+                        ${incident.title.length > 40 ? incident.title.slice(0, 40) + "..." : incident.title}
+                </a>
+                </td>
+                <td class='text-nowrap' title='${incident.description}'>
+                    ${incident.description.length > 50 ? incident.description.slice(0, 30) + "... " : incident.description}
+                </td>
+                <td class='text-nowrap'> ${getUserNameById(incident.assignedTo)}</td>;
+                <td class='text-nowrap'> ${getUserNameById(incident.createdBy)}</td>;
+                <td class='text-nowrap'>
+                <span title='${moment(incident.createdAT).format("MMMM DD YYYY, h:mm:ss a")}' >  ${moment(incident.createdAT).fromNow()}
+                </span>
+                </td>
+                <td class='text-nowrap ${dueDateClass}'>
+                    <span title='${moment(incident.dueDate).format("MMMM DD YYYY, h:mm:ss a")}' >  ${moment(incident.dueDate).fromNow()}
+                    </span>
+                </td>;
+                <td class='text-nowrap'>
+                <div class='status-badge badge  ${getStatusByCode(incident.status).replace(" ", "").toLowerCase()}' >
+                    ${getStatusByCode(incident.status)}
+                </div>
+            </td>
+            </tr>`;
     })
     // render html
     $("#listRows").html(incidents);
@@ -151,21 +152,20 @@ function setIncidents(allIncidents) {
 
 const pageNumberChanged = (selectedPageNumber) => {
     pageNumber = selectedPageNumber;
-    loadIncidents(pageSize, pageNumber, "");  
+    loadIncidents(pageSize, pageNumber, searchTxt);  
 }
 
 const pageSizeChanged = (selectedPageSize) => {
     pageNumber = 1;
     pageSize = selectedPageSize;
-    loadIncidents(pageSize, pageNumber, "");
+    loadIncidents(pageSize, pageNumber, searchTxt);
 }
 
 const searchWithDebounce = debounce(() => {
     loadIncidents(pageSize, 1, searchTxt);
 }, 500);
 
-const searchTextChanged = () => {
-    console.log("searchTxt", searchTxt);
+const searchTextChanged = () => {    
     searchWithDebounce();  
 }
 

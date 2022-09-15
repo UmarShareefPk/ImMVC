@@ -27,31 +27,33 @@
 
 
 <script>
-  const setRecordsInfo = (total, pageSize, pageNumber) => {
+  const setRecordsInfo = (total, pageSize, pageNumber) => {      
             let end = pageSize * pageNumber;
             let start = end - pageSize + 1;
             if (end > total)
                 end = total;
-            let info = `Showin from  ${ start } to ${ end } of ${ total } Incidents`;
+            if (total === 0) 
+              start = 0;
+            let info = `Showin from  ${ start } to ${ end } of ${ total } records`;
             $("#info").html(info);
         }
     const sizeChanged = (dropdown) => {
         pageSizeChanged($(dropdown).val()); // call the method in listing report
     }
     //
-    const setPagination = (pageContainerId, totalRecords, pageSize, pageNumber) => {       
+    const setPagination = (totalRecords, pageSize, pageNumber) => {       
             let pagesHtml = " <nav>";
              pagesHtml += "<ul class='pagination justify-content-end'>";
            
             let noOfPages = Math.ceil(totalRecords / pageSize);
             // No pages if no records
-            if (totalRecords == 0)
-                return;
+            //if (totalRecords == 0)
+             //   return;
             // set previous button
             if (pageNumber === 1)
                 pagesHtml += `<li class='page-item'><span class='page-link'>Previous</span></li>`;
             else
-                pagesHtml += `<li class='page-item' onclick="pageNumberChanged(${(pageNumber - 1)});">
+                pagesHtml += `<li class='page-item' onclick="pageNumberChanged(${ pageNumber - 1});">
                                 <a class='page-link' href='#'>Previous</a>
                              </li>`;
             // set number buttons

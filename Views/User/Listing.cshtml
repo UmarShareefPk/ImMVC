@@ -1,0 +1,149 @@
+﻿<div class="container px-8">
+    <br />
+    <div class="report-title">Users</div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <div class="page-actions">
+                <div class="search-div">
+                    <input type="text" id="searchText" class="line-textbox" placeholder="Enter first or last name" />
+                    @*<button class="btn btn-outline-success search-btn">
+                        <div>
+                            <i class="material-icons">search</i>                         
+                        </div>
+                    </button>*@
+                </div>
+                <button type="button" class="modal-btn btn im-btn text-nowrap ms-2" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="material-icons">
+                        add
+                    </i>
+                    <span class="d-none d-lg-block">Add New</span>
+                </button>
+            </div>
+           @* <NewIncident incidentAdded="@newIncidentAdded"></NewIncident>*@
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Created Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listRows">  
+                        <tr>
+                            <td colspan="4">
+                                 <p class="loading-p">Loading...</p>
+                            </td>
+                        </tr>                             
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer ">
+                    @await Html.PartialAsync("_Pagination", "")   
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+ <script>
+let pageSize = 5;
+let pageNumber = 1;
+let searchTxt = "";
+
+const setLoading = () => {
+    let loadingHtml =
+        `<tr>
+                <td colspan="4">
+                        <p class="loading-p">Loading...</p>
+                </td>
+        </tr>`;   
+     $("#listRows").html(loadingHtml);
+  }
+
+const setNotFound = () => {
+    let notFoundHtml =
+        `<tr>
+                <td colspan="4">
+                        <p class="not-found">No Record Found.</p>
+                </td>
+        </tr>`;   
+     $("#listRows").html(notFoundHtml);
+  }
+
+$(document).ready(function() {
+    loadUsers(5, 1, "");
+  
+      $("#searchText").on("input", function(e) {
+        searchTxt = $("#searchText").val();
+        searchTextChanged();
+    });
+});
+
+function loadUsers(pageSize, pageNumber, search) {
+    setLoading();
+    fetch("/User/ListingPage?pageSize=" + pageSize + "&pageNumber=" + pageNumber + "&search=" + searchTxt)
+        .then(response => response.json())
+        .then(response => {
+            if (response.total_Users == 0 || response.users == null) {
+                setNotFound();               
+            }
+            else {
+                 setIncidents(response.users);                        
+            }           
+            setPagination(response.total_Users, pageSize, pageNumber);    
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+} // end of loadIncidents
+function setIncidents(allUsers) {
+    let users = "";
+    allUsers.forEach((user) => {
+                users += 
+                `<tr>                  
+                     <td class='text-nowrap'> ${user.firstName}</td>
+                     <td class='text-nowrap'> ${ user.lastName}</td>
+                     <td class='text-nowrap'> ${ user.email}</td>
+                     <td class='text-nowrap'>
+                        <span title='${moment(user.createDate).format("MMMM DD YYYY, h:mm:ss a")}' >  ${moment(user.createDate).fromNow()}
+                        </span>
+                     </td>                    
+                 </tr>`;
+    })
+    // render html
+    $("#listRows").html(users);
+}
+
+const pageNumberChanged = (selectedPageNumber) => {
+    pageNumber = selectedPageNumber;
+    loadUsers(pageSize, pageNumber, searchTxt);  
+}
+
+const pageSizeChanged = (selectedPageSize) => {
+    pageNumber = 1;
+    pageSize = selectedPageSize;
+    loadUsers(pageSize, pageNumber, searchTxt);
+}
+
+const searchWithDebounce = debounce(() => {
+    loadUsers(pageSize, 1, searchTxt);
+}, 500);
+
+const searchTextChanged = () => {    
+    searchWithDebounce();  
+}
+
+ </script>
+} 
