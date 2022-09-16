@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IM.Data;
 using IM.Models;
+using System.Text.Json;
 
 namespace MVCWeb.Controllers
 {
@@ -10,16 +11,19 @@ namespace MVCWeb.Controllers
     {
         private readonly IDashboardService dashboardService;
         private readonly IUserService userService;
-        public DashboardController(IDashboardService _dashboardService, IUserService _userService)
+        private readonly ISession session;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public DashboardController(IDashboardService _dashboardService, IUserService _userService, IHttpContextAccessor _httpContextAccessor)
         {
             dashboardService = _dashboardService;
             userService = _userService;
+            session = _httpContextAccessor.HttpContext.Session;
         }
         // GET: DashboardController
         [Authorize]
         public async Task<ActionResult> Index()
         {
-            string token = User.Claims.Where(c => c.Type == "Token").FirstOrDefault().Value;
+            string token = User.Claims.Where(c => c.Type == "Token")?.FirstOrDefault().Value;
             string userId = User.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
             var kpiData = await dashboardService.GetKpi(token, userId);
             var overallData = await dashboardService.GetOverallWidget(token);
@@ -27,7 +31,9 @@ namespace MVCWeb.Controllers
             var lastFive = await dashboardService.GetLast5Incidents(token);
             var oldest5 = await dashboardService.GetOldest5UnresolvedIncidents(token);
 
-            var allUsers = await userService.GetAllUsers(token);
+            var allUsers = await userService.GetAllUsers(token);           
+
+            session.SetString("allUsers", JsonSerializer.Serialize(allUsers));
 
             ViewBag.allUsers = allUsers;
 

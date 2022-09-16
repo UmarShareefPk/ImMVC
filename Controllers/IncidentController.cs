@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using IM.Data;
 using IM.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using IM.Helper;
 
 namespace MVCWeb.Controllers
 {
@@ -14,13 +17,14 @@ namespace MVCWeb.Controllers
             incidentService = _incidentService;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Listing()
         {
             return View();
         }
 
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> ListingPage([FromQuery] string pageSize, [FromQuery]  string pageNumber, [FromQuery] string search)
         {
@@ -30,9 +34,17 @@ namespace MVCWeb.Controllers
         }
 
         // GET: IncidentController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(string id)
         {
-            return View();
+            string token = User.Claims.Where(c => c.Type == "Token").FirstOrDefault().Value;
+            Incident incident = await incidentService.GetIncidentById(token, id);
+            return View(incident);
+        }
+
+        [HttpPost]
+        public ActionResult Update([FromBody] IncidentUpdateModel model)
+        {
+            return Json(model);
         }
 
         // GET: IncidentController/Create

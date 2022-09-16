@@ -1,0 +1,57 @@
+﻿@model IM.Models.Incident
+@inject IM.Data.IUserService userSerivce
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12">
+                <div class="incident-title">
+                    <div id="titleBox" class="title-text">
+                        <i class="material-icons" onclick="$('#titleBox').hide(); $('#titleEditBox').show();">edit</i>
+                        <span id="title"> @Model.Title </span>
+                    </div>
+                    <div id="titleEditBox" class="title-edit-box" style="display:none;">
+                        <textarea id="titleTxt" class="small"></textarea>
+                        <div class="edit-buttons">
+                            <button class="btn cancel-btn text-white" onclick="$('#titleBox').show(); $('#titleEditBox').hide();">
+                                <div>
+                                    <i class="material-icons">cancel</i>
+                                    <span>Cancel</span>
+                                </div>
+                            </button>
+                            <button class="btn save-btn text-white" onclick="titleUpdate();">
+                                <div>
+                                    <i class="material-icons">save</i>
+                                    <span>Save</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12">
+                <div class="incident-createTime mt-2">
+                    Created by <span class="user-text usernamebyId">@Model.CreatedBy</span>
+                    <span title="@Model.CreatedAT.ToString("MMM dd, yyyy h:m")"> <span class="dateType">@Model.CreatedAT</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     function titleUpdate() {
+          console.log($('#titleTxt').val());
+         //if ($('#titleTxt').val().trim() == "") {
+         //    alert("Title cannot be null.");
+            
+         //    return;
+         //}
+         //   updateIncidentByField('Title', $('#titleTxt').val().trim());
+         //   $('#title').html($('#titleTxt').val().trim());
+         //   $('#titleBox').show();
+         //   $('#titleEditBox').hide();
+        }
+</script>

@@ -135,10 +135,17 @@ namespace IM.Data
 
         public async Task<string> GetUserNameById(string userId)
         {
-            //List<User> users = await localStorage.GetItemAsync<List<User>>("allUsers");
-            //var user = users.Where(user => user.Id == userId).FirstOrDefault();
-            //return user.FirstName + " " + user.LastName;
-            return "dd";
+            try
+            {
+                var users = JsonSerializer.Deserialize<List<User>>(session.GetString("allUsers"));
+
+                var user = users.Where(user => user.Id == userId).FirstOrDefault();
+                return user.FirstName + " " + user.LastName;
+            }
+            catch(Exception ex)
+            {
+                return "Error Erro";
+            }
         }
 
         public async Task<string> GetLoggedInUserId()

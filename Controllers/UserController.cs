@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using IM.Data;
 using IM.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVCWeb.Controllers
 {
@@ -14,12 +15,14 @@ namespace MVCWeb.Controllers
             userService = _userService;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Listing()
         {
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> AllUsers()
         {
@@ -28,7 +31,7 @@ namespace MVCWeb.Controllers
             return Json(users);            
         }
 
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> ListingPage([FromQuery] string pageSize, [FromQuery]  string pageNumber, [FromQuery] string search)
         {

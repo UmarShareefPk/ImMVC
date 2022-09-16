@@ -1,0 +1,36 @@
+﻿@model IM.Models.Incident
+@inject IM.Data.IUserService userSerivce
+
+<div class="field-title">
+    <span>Description </span>  
+     <i class="material-icons edit-btn" onclick="$('#descriptionBox').hide(); $('#descriptionEditBox').show();">edit</i>
+</div>
+
+<div class="description-container">
+      <div class="incident-description">
+
+        <div class="description-text-div" id="descriptionBox">
+            <p id="description"> @Model.Description </p>
+        </div>
+
+         <div class="" id="descriptionEditBox" style="display:none;">
+
+            <textarea class="medium"></textarea>
+            <div class="edit-buttons">
+                <button class="btn cancel-btn text-white" onclick="$('#descriptionEditBox').hide(); $('#descriptionBox').show();">
+                    <div>
+                        <i class="material-icons">cancel</i>
+                        <span>Cancel</span>
+                    </div>
+                </button>
+                <button class="btn save-btn text-white" onclick="update">
+                    <div>
+                        <i class="material-icons">save</i>
+                        <span>Save</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

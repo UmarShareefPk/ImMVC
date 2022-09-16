@@ -9,6 +9,11 @@ $(document).ready(function () {
         $(this).html(m)
     });
 
+    $(".usernamebyId").each(function () {
+        let name = getUserNameById($(this).html());
+        $(this).html(name)
+    });
+
 });
 
 function debounce(cb, delay = 1000) {   

@@ -36,47 +36,59 @@
 /*********** title**********/
 
 .title-container {
-    display: flex;
+/*    display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 100%;*/
     
 }
 
-.title-text-div{
+/*.title-text-div{
     display:flex;
     align-items:center;
-}
+}*/
 
-.incident-title {
+.incident-title .title-text {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
-    font-size: x-large;
-    color: #0458f2;
+    font-size: large;
+    color: #cbdfcb;
 }
 
-    .incident-title i {
-        /*   padding-top: 5px;
-    margin-right: 5px;*/
-        color: gray;
-        font-size: x-large;
-        cursor: pointer;
-    }
+
+.incident-title .title-edit-box textarea{
+    width:100%;
+}
+
+
+.incident-title i {  
+    color: gray;
+    font-size: large;
+    cursor: pointer;
+}
 
 .incident-createTime {
-    font-size: small;
-   /* background-color:white;*/
-    color: gray;
+   /* margin-top:10px;*/
+    font-size: small;  
+    color: #969696;
     text-align:right;
+}
+
+.incident-createTime .user-text{
+    color:#00a1ff;
 }
 
 /*********** description **********/
 .field-title{
+    font-size:medium;
+    margin-bottom:5px;
     font-weight:bold;
-    color:darkblue;
+    color:white;
     display:flex;
     align-items:center;
+
       
 }
 .field-td{
@@ -89,11 +101,14 @@
     align-items: center;
     width: 100%;
 }
-
+.incident-description textarea{
+    width:100%;
+}
 .description-text-div {
     display: flex;
 }
 .description-text-div p {
+    color:#c6c6c6;
     white-space: pre-wrap;
     max-height: 200px;
     overflow-y: auto;

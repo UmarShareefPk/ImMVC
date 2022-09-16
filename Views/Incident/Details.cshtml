@@ -1,0 +1,232 @@
+﻿@model IM.Models.Incident
+
+<div class="report-title">Incident Details</div>
+
+@******************* Title and Time ***********************@
+@await Html.PartialAsync("~/Views/Incident/DetailsSections/_TitleAndTime.cshtml", Model);
+
+
+
+<div class="row">
+    <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+               @await Html.PartialAsync("~/Views/Incident/DetailsSections/_Description.cshtml", Model)
+                @*<IncidentAdditionalDetails incidentId="@incidentId" additionalDetails="@incident.AdditionalData"></IncidentAdditionalDetails>
+                <IncidentAttachments attachments="@incident.Attachments"></IncidentAttachments>
+*@
+            </div>
+        </div>
+    </div>
+    </div>
+@*    <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <IncidentFields incidentId="@incident.Id"
+                                status=@incident.Status assignee=@incident.AssignedTo
+                                starttime=@incident.StartTime duedate=@incident.DueDate>
+                </IncidentFields>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <IncidentComments incidentId="@incidentId" comments="@incident.Comments">
+                </IncidentComments>
+            </div>
+        </div>
+    </div>
+</div>
+*@
+
+@section Scripts{
+    <script>
+    let incidentId = '@Model.Id';
+        ///////////////////////////////////////////////////////// Incident updates ////////////////////////////////////////
+        function updateIncidentByField(field, value){
+            let parameters = {
+                "incidentId":incidentId,
+                "field": field,
+                "value": value
+            };
+            console.log(parameters);
+             fetch("/Incident/Update", {
+                method: 'post',
+                 headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                body:  parameters
+                })
+                .then((response) => {
+                    console.log(response.json());                    
+                    //sendUpdateToSignalR(parameters.IncidentId);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        function titleUpdate() {
+            updateIncidentByField('Title', $('#titleTxt').val().trim());
+            $('#title').html($('#titleTxt').val().trim());
+            $('#titleBox').show();
+            $('#titleEditBox').hide();
+        }
+        function descriptionUpdate() {
+            updateIncidentByField('Description', $('#descriptionTxt').val().trim());
+            $('#description').html($('#descriptionTxt').val().trim());
+            $('#descriptionEditBox').hide();
+            $('#descriptionBox').show();
+        }
+        function additionalDetailsUpdate() {
+            updateIncidentByField('AdditionalData', $('#additionalDetailsTxt').val().trim().replaceAll("'" , "''"));
+            $('#additionalDetails').html($('#additionalDetailsTxt').val().trim());
+            $('#additionalDetailsEditBox').hide();
+            $('#additionalDetailsBox').show();
+        }
+        //function deleteAttachment(isComment, commentId, fileName, fileId) {
+        //    swal({
+        //        title: "Are you sure?",
+        //        text: "Once deleted, you will not be able to recover this file!",
+        //        icon: "warning",
+        //        buttons: true,
+        //        dangerMode: true,
+        //    })
+        //        .then((willDelete) => {
+        //            if (willDelete) {
+        //                  axios.defaults.headers = { 'Authorization': `Bearer @ViewBag.token` };
+        //                const url = "@ViewBag.baseUrl" + "api/Incidents/DeleteFile?"
+        //                    + "type="  + (isComment ? "comment" : "incident")
+        //                    + "&commentId=" + (isComment ? commentId : "")
+        //                    + "&incidentId=" + "@Model.Id"
+        //                    + "&userId=" + "@ViewBag.userId"
+        //                    + "&fileId=" + fileId
+        //                    + "&filename=" + fileName
+        //                   // + "&contentType=" + file.ContentType
+        //                    axios.get(url)
+        //                        .then((response) => {
+        //                            $("#file-" + fileId).remove();
+        //                        })
+        //                        .catch((err) => {
+        //                            console.log(err.message);
+        //                        });
+        //            } else {
+        //            }
+        //        });
+        //}
+////////////////////////////////////  Date Pickers /////////////////////////////////////////
+        let datepicker = new SimplePicker({
+            zIndex: 10
+        });
+        let isStartDate = false; // check where datepicker focus is
+        $("#startDateEdit").click(function () {
+            isStartDate = true;
+            datepicker.open();
+        });
+        $("#dueDateEdit").click(function () {
+            isStartDate = false;
+            datepicker.open();
+        });
+        datepicker.on('submit', (date, readableDate) => {
+            if (isStartDate) {
+                $("#startDate").html("<span title='" + moment(date).format("MMMM DD YYYY, h:mm:ss a") + "'>" + moment(date).fromNow() + "</span>");
+                updateIncidentByField("StartTime", date);
+            }
+            else {
+                $("#dueDate").html("<span title='" + moment(date).format("MMMM DD YYYY, h:mm:ss a") + "'>" + moment(date).fromNow() + "</span>");
+                updateIncidentByField("DueDate", date);
+            }
+        });
+        datepicker.on('close', (date) => {
+        });
+//////////////////////////////////////////////  Comment Section ///////////////////////////////////////////////////////////////////
+        //function addNewComment() {
+        //    let newComment = $("#comment").val().trim();
+        //    let newCommentFiles = $('#commentFiles')[0].files;
+        //    if (newComment.trim() === "") {
+        //        alert("Please add comment first.");
+        //        return;
+        //    }
+        //    const formData = new FormData();
+        //    if (newCommentFiles) {
+        //        for (let i = 0; i < newCommentFiles.length; i++) {
+        //            formData.append(
+        //                "Attachment" + i + 1,
+        //                newCommentFiles[i],
+        //                newCommentFiles[i].name
+        //            );
+        //        }
+        //    }
+        //    formData.append("CommentText", newComment.trim());
+        //    formData.append("IncidentId", '@Model.Id');
+        //    formData.append("UserId", '@ViewBag.userId');
+        //    axios.defaults.headers = { 'Authorization': `Bearer @ViewBag.token` };
+        //    const url = "@ViewBag.baseUrl" + "api/Incidents/AddComment";
+        //    axios.post(url, formData)
+        //        .then((response) => {
+        //            const comment = response.data;
+        //            sendUpdateToSignalR(comment.IncidentId);
+        //            window.location.reload(true);
+        //        })
+        //        .catch((err) => {
+        //            console.log(err.message);
+        //        });
+        //}
+        //function updateComment(commentId) {
+        //    let comment = {
+        //        Id: commentId,
+        //        IncidentId: '@Model.Id',
+        //        UserId: '@ViewBag.userId',
+        //        CreateDate: new Date(),
+        //        CommentText: $("#commentTxtEdit-" + commentId + " textarea").val(),
+        //        attachments: []
+        //    }
+        //    axios.defaults.headers = { 'Authorization': `Bearer @ViewBag.token` };
+        //    const url = "@ViewBag.baseUrl" + "api/Incidents/UpdateComment";
+        //    axios.post(url, comment)
+        //        .then((response) => {
+        //            $("#commentTxt-" + commentId).html(comment.CommentText);
+        //            $('#commentTxt-' + commentId).show();
+        //            $('#commentTxtEdit-' + commentId).hide();
+        //            sendUpdateToSignalR(comment.IncidentId);
+        //        })
+        //        .catch((err) => {
+        //            console.log(err.message);
+        //        });
+        //}
+        //function deleteComment(commentId) {
+        //    swal({
+        //        title: "Are you sure?",
+        //        text: "Once deleted, you will not be able to recover this comment!",
+        //        icon: "warning",
+        //        buttons: true,
+        //        dangerMode: true,
+        //    })
+        //        .then((willDelete) => {
+        //            if (willDelete) {
+        //                axios.defaults.headers = { 'Authorization': `Bearer @ViewBag.token` };
+        //                const url = "@ViewBag.baseUrl" + "api/Incidents/DeleteComment?"
+        //                    + "commentId=" + commentId
+        //                    + "&incidentId=" + '@Model.Id'
+        //                    + "&userId=" + '@ViewBag.userId'
+        //                axios.get(url)
+        //                    .then((response) => {
+        //                        console.log("comment delted :", response);
+        //                        $("#commentBox-" + commentId).remove();
+        //                        sendUpdateToSignalR(comment.IncidentId);
+        //                    })
+        //                    .catch((err) => {
+        //                        console.log(err.message);
+        //                        const data = "while delteing comment: " + err.message;
+        //                    });
+        //            }
+        //        });
+        //}
+    </script>
+}

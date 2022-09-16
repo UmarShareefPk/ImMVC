@@ -62,16 +62,20 @@ input, input:focus {
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+    background-color: var( --card-bg);
+    color: white;
 }
 textarea, textarea:focus {
-    line-height:1;
+    line-height: 1;
     border-width: 0px;
-    border-bottom:2px solid black;
+    border-bottom: 2px solid gray;
     outline: 0; /* I have also tried outline:none */
     -webkit-appearance: none;
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+    background-color: var( --card-bg);
+    color:white;
 }
 select, select:focus {
     border-width: 0px;
