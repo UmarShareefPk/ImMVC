@@ -58,6 +58,9 @@
 
 </div>
 
+
+    
+
 @section Scripts{
  <script>
 let pageSize = 5;
@@ -86,11 +89,12 @@ const setNotFound = () => {
 
 $(document).ready(function() {
     loadIncidents(5, 1, "");
-  
-      $("#searchText").on("input", function(e) {
+
+    $("#searchText").on("input", function(e) {
         searchTxt = $("#searchText").val();
         searchTextChanged();
     });
+   
 });
 
 function loadIncidents(pageSize, pageNumber, search) {
@@ -126,8 +130,12 @@ function setIncidents(allIncidents) {
                         ${incident.title.length > 40 ? incident.title.slice(0, 40) + "..." : incident.title}
                 </a>
                 </td>
-                <td class='text-nowrap' title='${incident.description}'>
-                    ${incident.description.length > 50 ? incident.description.slice(0, 30) + "... " : incident.description}
+                <td class='text-nowrap tooltipx' title='${incident.description}'>
+                    <div class="custom-dropdown">
+                        <span>
+                            ${incident.description.length > 30 ? incident.description.slice(0,30) + " ..." : incident.description }
+                        </span>                       
+                    </div>                   
                 </td>
                 <td class='text-nowrap'> ${getUserNameById(incident.assignedTo)}</td>;
                 <td class='text-nowrap'> ${getUserNameById(incident.createdBy)}</td>;
@@ -144,7 +152,7 @@ function setIncidents(allIncidents) {
                     ${getStatusByCode(incident.status)}
                 </div>
             </td>
-            </tr>`;
+         </tr>`;
     })
     // render html
     $("#listRows").html(incidents);

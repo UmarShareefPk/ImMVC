@@ -1,0 +1,48 @@
+﻿@using IM.Models
+@model IM.Models.Incident
+@inject IM.Data.IUserService userSerivce
+@{   
+}
+
+
+<div class="field-title">
+    Attachments
+</div>
+<div class="files-container">
+
+    @if (Model.Attachments.Count > 0)
+    {
+        <span class="incident-files-toggle " id="hidefiles" style="display:none;" onclick="$(this).hide(); $('#showfiles').show(); $('.allfiles').hide()"> 
+            <i class="material-icons">visibility_off</i>
+            <span>Hide @Model.Attachments.Count attachments</span>
+        </span>
+        <span class="incident-files-toggle " id="showfiles" onclick="$(this).hide(); $('#hidefiles').show();$('.allfiles').show()">
+            <i class="material-icons">visibility</i>
+            <span>Show @Model.Attachments.Count attachments</span>
+        </span>
+
+        <div class="allfiles" style="display:none;">
+            @foreach (IncidentAttachment file in Model.Attachments)
+            {
+                var currentFile = file;
+                <div class="file-box">
+                    <div class="file-name">
+
+                        <span class="text-nowrap" title="@file.FileName">
+                            <i class="material-icons">attachment</i>
+                           <span>@(file.FileName.Length >20? file.FileName.Substring(0,20) + "...": file.FileName)</span> 
+                        </span>
+                    </div>
+                    <div class="file-actions">
+                        <i title="Download file" class="material-icons download">download</i>
+                        <i title="Delete file"  class="material-icons del">delete_forever</i>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-muted">This incident has no attachments.</p>
+    }
+</div>

@@ -100,6 +100,8 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    border-bottom: 1px solid #4c4949;
+    margin-bottom: 1vh;
 }
 .incident-description textarea{
     width:100%;
@@ -146,7 +148,7 @@
     align-items:center;
     cursor:pointer;
     font-size:medium;
-    color:darkblue;
+    color:#38b6ff;
 }
 
 .incident-files-toggle i {
@@ -156,22 +158,25 @@
     display: flex;
     justify-content: center;
     font-size: medium;
-    line-height: 2;
-    border-bottom: dotted 0.5px lightgray;
+    line-height: 3;
+    border-bottom: 1px dotted #4c4949;
 }
 
 .files-container .file-box .file-name {
     min-width: 190px;
-    color: gray;
+    color: #969696;
+    display:flex;
+   
 }
 .files-container .file-box .file-name span {
     display: flex;
+     align-items:center;
 }
 
 .files-container .file-box .file-name i {
-    color: #cfbf13;
+    color: orange;
     margin-right:2px;
-    margin-top:4px;
+   
 }
 
 .files-container .file-box .file-actions {
@@ -181,10 +186,10 @@
     cursor:pointer;
 }
 .file-actions i.del {
-    color: red;
+    color: #ff6e6e;
 }
 .file-actions i.download {
-    color: dodgerblue;
+    color: #00a1ff;
 }
 /******* Fields **********/
 .field-table {

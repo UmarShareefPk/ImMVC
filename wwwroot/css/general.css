@@ -20,11 +20,13 @@
     box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
 }
 
-.table tr th{
-    color:white;
-    font-size:small;
-    
-    
+.table{
+    min-height:fit-content;
+}
+
+.table tr th {
+    color: white;
+    font-size: small;
 }
 
 .table tr td {
@@ -115,6 +117,7 @@ textarea.small {
     text-align:center;
     font-size:large;
     color:#e3a72b;
+    white-space:nowrap;
 }
 
 .table-borderless > tbody > tr > td,
@@ -124,6 +127,34 @@ textarea.small {
 .table-borderless > thead > tr > td,
 .table-borderless > thead > tr > th {
     border: none;
+}
+
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-dropdown-content {
+    display: none;
+    position: absolute;
+
+    line-height:2;
+    /* background-color: #f9f9f9; */
+    background-color: #1A237E;
+    color: white;
+    font-size: small;
+    min-width: 300px;
+/*    max-width: 300px;*/
+    white-space: pre-wrap;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 5px 15px;
+    z-index: 99999;
+    border-radius: 10px;
+} 
+
+.custom-dropdown:hover .custom-dropdown-content {
+    display: block;
 }
 
 .file-upload-container{

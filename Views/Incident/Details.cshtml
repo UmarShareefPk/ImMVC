@@ -11,10 +11,17 @@
     <div class="col-xl-6  col-lg-6 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-body">
-               @await Html.PartialAsync("~/Views/Incident/DetailsSections/_Description.cshtml", Model)
-                @*<IncidentAdditionalDetails incidentId="@incidentId" additionalDetails="@incident.AdditionalData"></IncidentAdditionalDetails>
-                <IncidentAttachments attachments="@incident.Attachments"></IncidentAttachments>
-*@
+                @{
+                    ViewData["name"] = "description";
+                }
+                @await Html.PartialAsync("~/Views/Incident/DetailsSections/_Description.cshtml", Model, ViewData)
+                @{
+                    ViewData["name"] = "additional";
+                }
+
+                @await Html.PartialAsync("~/Views/Incident/DetailsSections/_Description.cshtml", Model, ViewData)
+                @await Html.PartialAsync("~/Views/Incident/DetailsSections/_IncidentFiles.cshtml", Model, ViewData)
+
             </div>
         </div>
     </div>
