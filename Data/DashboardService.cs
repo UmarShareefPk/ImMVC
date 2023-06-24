@@ -26,7 +26,7 @@ namespace IM.Data
         private readonly IHttpClientFactory clientFactory;
         private readonly IUserService userService;
         private readonly ICommon commonService;
-        private string baseUrl = "https://imwebapicore.azurewebsites.net/api";
+        private string baseUrl = "https://imnet7mongodbapi.azurewebsites.net/api";
         public DashboardService(IConfiguration _configuration, IHttpClientFactory _clientFactory,  IUserService _userService, ICommon _commonService)
         {
             configuration = _configuration;

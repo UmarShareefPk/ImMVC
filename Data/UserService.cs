@@ -31,7 +31,7 @@ namespace IM.Data
         private readonly IConfiguration configuration;
         private readonly IHttpClientFactory clientFactory;
         private readonly ICommon commonService;
-        private string baseUrl = "https://imwebapicore.azurewebsites.net/api";
+        private string baseUrl = "https://imnet7mongodbapi.azurewebsites.net/api";
         private readonly ISession session;
         private readonly IHttpContextAccessor httpContextAccessor;
         public UserService(IConfiguration _configuration, IHttpClientFactory _clientFactory, IHttpContextAccessor _httpContextAccessor, ICommon _commonService)

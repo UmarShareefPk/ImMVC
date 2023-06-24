@@ -26,7 +26,7 @@ namespace IM.Data
        
         private readonly ICommon commonService;
         private readonly IUserService userService;
-        private string baseUrl = "https://imwebapicore.azurewebsites.net/api";
+        private string baseUrl = "https://imnet7mongodbapi.azurewebsites.net/api";
         public NotificationService(IConfiguration _configuration, IHttpClientFactory _clientFactory, ICommon _commonService, IUserService _userService)
         {
             configuration = _configuration;
